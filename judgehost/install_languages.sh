@@ -28,30 +28,31 @@ install_pypy3() {
 }
 
 
-install_kotlin() {
-	echo "deb [trusted=yes] https://pc2.ecs.baylor.edu/apt focal main" >> /etc/apt/sources.list
-	echo 'Acquire::https::pc2.ecs.baylor.edu::Verify-Peer "false";
-Acquire::https::pc2.ecs.baylor.edu::Verify-Host "false";' >> /etc/apt/apt.conf.d/80trust-baylor-mirror
-
-	echo "deb [trusted=yes] https://pc2.ecs.baylor.edu/apt focal main" >> ${CHROOT}/etc/apt/sources.list
-	echo 'Acquire::https::pc2.ecs.baylor.edu::Verify-Peer "false";
-Acquire::https::pc2.ecs.baylor.edu::Verify-Host "false";' >> ${CHROOT}/etc/apt/apt.conf.d/80trust-baylor-mirror
-
-	ln -s /usr/lib/kotlinc/bin/kotlinc /usr/bin/kotlinc
-	ln -s /usr/lib/kotlinc/bin/kotlin /usr/bin/kotlin
-
-	/opt/domjudge/judgehost/bin/dj_run_chroot '
-	ln -s /usr/lib/kotlinc/bin/kotlinc /usr/bin/kotlinc
-	ln -s /usr/lib/kotlinc/bin/kotlin /usr/bin/kotlin
-	'
-
-	DEB_PACKAGES="icpc-kotlinc $DEB_PACKAGES"
-	CHROOT_PACKAGES="icpc-kotlinc $CHROOT_PACKAGES"
-}
+#install_kotlin() {
+#	echo "deb [trusted=yes] https://pc2.ecs.baylor.edu/apt focal main" >> /etc/apt/sources.list
+#	echo 'Acquire::https::pc2.ecs.baylor.edu::Verify-Peer "false";
+#Acquire::https::pc2.ecs.baylor.edu::Verify-Host "false";' >> /etc/apt/apt.conf.d/80trust-baylor-mirror
+#
+#	echo "deb [trusted=yes] https://pc2.ecs.baylor.edu/apt focal main" >> ${CHROOT}/etc/apt/sources.list
+#	echo 'Acquire::https::pc2.ecs.baylor.edu::Verify-Peer "false";
+#Acquire::https::pc2.ecs.baylor.edu::Verify-Host "false";' >> ${CHROOT}/etc/apt/apt.conf.d/80trust-baylor-mirror
+#
+#	ln -s /usr/lib/kotlinc/bin/kotlinc /usr/bin/kotlinc
+#	ln -s /usr/lib/kotlinc/bin/kotlin /usr/bin/kotlin
+#
+#	/opt/domjudge/judgehost/bin/dj_run_chroot '
+#	ln -s /usr/lib/kotlinc/bin/kotlinc /usr/bin/kotlinc
+#	ln -s /usr/lib/kotlinc/bin/kotlin /usr/bin/kotlin
+#	'
+#
+#	DEB_PACKAGES="icpc-kotlinc $DEB_PACKAGES"
+#	CHROOT_PACKAGES="icpc-kotlinc $CHROOT_PACKAGES"
+#}
 
 install_csharp() {
 	DEB_PACKAGES="mono-devel $DEB_PACKAGES"
 	CHROOT_PACKAGES="mono-runtime $CHROOT_PACKAGES"
+    CHROOT_PACKAGES="mono-mcs $CHROOT_PACKAGES"
 }
 
 
@@ -85,7 +86,7 @@ install_cpp
 install_java
 [ "$LANG_PYPY3" = "yes" ] && install_pypy3
 [ "$LANG_CSHARP" = "yes" ] && install_csharp
-[ "$LANG_KOTLIN" = "yes" ] && install_kotlin
+#[ "$LANG_KOTLIN" = "yes" ] && install_kotlin
 
 # Enable networking in chroot
 mv ${CHROOT}/etc/resolv.conf ${CHROOT}/etc/resolv.conf.bak
