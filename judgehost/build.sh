@@ -2,7 +2,7 @@
 
 set -e
 
-DEFAULT_VERSION=8.1.3
+DEFAULT_VERSION=8.2.3
 VERSION=$1
 if [ -z ${VERSION} ]
 then

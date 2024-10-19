@@ -1,5 +1,5 @@
 # Note that the languages C,C++, Python3, Java, Haskel and Pascal are installed in the main image
-ARG VERSION=8.1.3
+ARG VERSION=8.2.3
 FROM domjudge/judgehost:${VERSION}
 # ENV LANG_KOTLIN=yes
 # Only used for company teams
